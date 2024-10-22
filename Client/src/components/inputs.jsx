@@ -10,7 +10,7 @@ function Inputs({ setQuery, units, setUnits }) {
 
     const handleLocationClick = () => {
         if (navigator.geolocation) {
-            toast.info("Fetching users location.");
+            toast.info("Fetching user's location.");
             navigator.geolocation.getCurrentPosition((position) => {
                 toast.success("Location fetched!");
                 let lat = position.coords.latitude;
@@ -26,7 +26,7 @@ function Inputs({ setQuery, units, setUnits }) {
 
     return (
         <div className="flex flex-row justify-center my-6">
-            <div className="flex flex-row w-3/4 items-center justify-center space-x-4">
+            <div className="flex flex-row w-1/2 items-center justify-center space-x-4">
                 <input
                     value={city}
                     onChange={(e) => setCity(e.currentTarget.value)}
@@ -45,7 +45,6 @@ function Inputs({ setQuery, units, setUnits }) {
                     onClick={handleLocationClick}
                 />
             </div>
-
         </div>
     );
 }
