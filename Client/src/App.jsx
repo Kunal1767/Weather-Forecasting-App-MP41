@@ -1,35 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+// import UilReact from '@iconscout/react-unicons/icons/uil-react';
+import TopButtons from './components/TopButtons';
+import Inputs from './components/inputs';
+import TimeAndLocation from './components/TimeAndLocation';
+import TemperatureAndDetails from './components/TemperatureAndDetails';
+import Forecast from './components/Forecast'; // Ensure correct import
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="mx-auto w-full py-5  bg-[url('./assets/image.png')] bg-cover bg-center min-h-screen h-screen shadow-xl shadow-grey-400">
+      <TopButtons />
+      <Inputs />
+      <TimeAndLocation />
+      <TemperatureAndDetails />
+      <Forecast />
+    </div>
+  );
 }
 
-export default App
+export default App;
