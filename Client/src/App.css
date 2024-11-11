@@ -1,4 +1,8 @@
+.c{
+    position: relative;
+    left: 500px;
+}
 .c1{
     position: relative;
-    left: 600px;
+    left: -500px;
 }
