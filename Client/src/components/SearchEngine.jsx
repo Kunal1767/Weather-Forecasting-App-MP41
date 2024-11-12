@@ -22,4 +22,5 @@ function SearchEngine({ query, setQuery, search }) {
     );
 }
 
+
 export default SearchEngine;

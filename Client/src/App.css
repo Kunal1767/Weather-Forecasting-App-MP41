@@ -37,12 +37,12 @@ body {
     height: 40px;
     border: none;
     border-radius: 5px;
-    /* Updated */
     padding: 2px 15px;
     font-size: 16px;
     outline: none;
     background-color: #fff;
     color: #555;
+    
 }
 
 .SearchEngine input::placeholder {

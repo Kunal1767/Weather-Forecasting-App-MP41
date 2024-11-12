@@ -13,6 +13,7 @@ function Forecast({ weather }) {
                 const dailyData = await fetchForecastData(data.city);
                 setForecastData(dailyData);
                 setLoading(false);
+        
             } catch (error) {
                 setLoading(false);
                 console.error("Error fetching forecast data:", error);
