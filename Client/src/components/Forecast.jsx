@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactAnimatedWeather from "react-animated-weather";
-import { fetchForecastData } from "../Services/Api"; 
+import { fetchForecastData } from "./services/api"; 
 function Forecast({ weather }) {
   const { data } = weather;
   const [forecastData, setForecastData] = useState([]);
