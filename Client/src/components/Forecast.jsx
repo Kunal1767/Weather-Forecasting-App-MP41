@@ -26,25 +26,28 @@ function Forecast({ weather }) {
     }
   }, [data.city]);
 
+  // Function to format the date into a readable date (e.g., "Nov 26, 2024")
   const formatDate = (dateString) => {
-    const date = new Date(dateString * 1000);
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const date = new Date(dateString * 1000);  // Convert timestamp to Date object
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };  // Format date as "Nov 26, 2024"
     return date.toLocaleDateString("en-US", options);
   };
 
+  // Function to get "Today", "Tomorrow", or the formatted date for future dates
   const getDayLabel = (dateString) => {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
-    const date = new Date(dateString * 1000);
+    const date = new Date(dateString * 1000); // Convert timestamp to Date object
+
     if (date.toDateString() === today.toDateString()) {
       return "Today";
     }
     if (date.toDateString() === tomorrow.toDateString()) {
       return "Tomorrow";
     }
-    return formatDate(dateString);
+    return formatDate(dateString); // For future dates, return the full formatted date
   };
 
   const getCurrentDate = () => {
@@ -102,7 +105,7 @@ function Forecast({ weather }) {
         <div className="forecast-container">
           {forecastData.slice(0, 5).map((date) => (
             <div className="day" key={date.time}>
-              <p className="day-name">{getDayLabel(date.time)}</p>
+              <p className="day-name">{getDayLabel(date.time)}</p>  {/* Display "Today", "Tomorrow", or date */}
               {date.condition.icon_url && (
                 <img className="day-icon" src={date.condition.icon_url} alt={date.condition.description} />
               )}
