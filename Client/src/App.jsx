@@ -49,10 +49,10 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const currentWeather = await fetchCurrentWeather("Rabat");
+        const currentWeather = await fetchCurrentWeather("Jait");
         setWeather({ data: currentWeather, loading: false, error: false });
 
-        const forecast = await fetchForecastData("Rabat");
+        const forecast = await fetchForecastData("Jait");
         setForecastData(forecast);
       } catch (error) {
         setWeather({ data: {}, loading: false, error: true });
