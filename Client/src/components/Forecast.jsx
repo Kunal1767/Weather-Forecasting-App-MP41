@@ -1,32 +1,50 @@
 import React, { useEffect, useState } from "react";
 import ReactAnimatedWeather from "react-animated-weather";
-import { fetchForecastData } from "../Services/api"; 
+
 function Forecast({ weather }) {
   const { data } = weather;
   const [forecastData, setForecastData] = useState([]);
   const [isCelsius, setIsCelsius] = useState(true);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const getForecastData = async () => {
-      setLoading(true); 
+      setLoading(true);
       try {
         const dailyData = await fetchForecastData(data.city);
-        setForecastData(dailyData); 
-        setLoading(false); 
+        setForecastData(dailyData);
+        setLoading(false);
       } catch (error) {
-        setLoading(false); 
+        setLoading(false);
         console.error("Error fetching forecast data:", error);
       }
     };
 
-    if (data.city) { 
+    if (data.city) {
       getForecastData();
     }
-  }, [data.city]); 
-  const formatDay = (dateString) => {
-    const options = { weekday: "short" };
-    const date = new Date(dateString * 1000);
+  }, [data.city]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString * 1000);  
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };  
     return date.toLocaleDateString("en-US", options);
+  };
+
+  const getDayLabel = (dateString) => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const date = new Date(dateString * 1000); 
+
+    if (date.toDateString() === today.toDateString()) {
+      return "Today";
+    }
+    if (date.toDateString() === tomorrow.toDateString()) {
+      return "Tomorrow";
+    }
+    return formatDate(dateString); 
   };
 
   const getCurrentDate = () => {
@@ -48,7 +66,7 @@ function Forecast({ weather }) {
     isCelsius ? Math.round(temperature) : convertToFahrenheit(temperature);
 
   if (loading) {
-    return <div>Loading forecast...</div>; 
+    return <div>Loading forecast...</div>;
   }
 
   return (
@@ -82,14 +100,14 @@ function Forecast({ weather }) {
       <div className="forecast">
         <h3>5-Day Forecast:</h3>
         <div className="forecast-container">
-          {forecastData.slice(0, 5).map((day) => (
-            <div className="day" key={day.time}>
-              <p className="day-name">{formatDay(day.time)}</p>
-              {day.condition.icon_url && (
-                <img className="day-icon" src={day.condition.icon_url} alt={day.condition.description} />
+          {forecastData.slice(0, 5).map((date) => (
+            <div className="day" key={date.time}>
+              <p className="day-name">{getDayLabel(date.time)}</p>  
+              {date.condition.icon_url && (
+                <img className="day-icon" src={date.condition.icon_url} alt={date.condition.description} />
               )}
               <p className="day-temperature">
-                {Math.round(day.temperature.minimum)}° / {Math.round(day.temperature.maximum)}°
+                {Math.round(date.temperature.minimum)}° / {Math.round(date.temperature.maximum)}°
               </p>
             </div>
           ))}
