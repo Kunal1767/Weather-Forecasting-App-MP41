@@ -91,7 +91,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData("chhata");
+    fetchData("jait");
 
     setTimeout(() => {
       setAlertData({

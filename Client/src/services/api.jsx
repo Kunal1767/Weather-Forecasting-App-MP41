@@ -48,22 +48,23 @@ export const fetchWeatherAlerts = async (query) => {
     return null;
 };
 export const fetchWeatherByCoordinates = async (latitude, longitude) => {
-    const apiKey = '376956a6049bffc220eed12aacb3d313'; 
-    const url = 'https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric';
+    const apiKey = '376956a6049bffc220eed12aacb3d313';
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
     try {
         const response = await axios.get(url);
-        return response.data; 
+        return response.data;
     } catch (error) {
         if (error.response) {
-            
+            // Server responded with a status code out of the 2xx range
             console.error("Error fetching weather data:", error.response.status, error.response.data);
         } else if (error.request) {
+            // Request was made but no response received
             console.error("Error fetching weather data: No response received", error.request);
         } else {
+            // Error occurred while setting up the request
             console.error("Error fetching weather data:", error.message);
         }
-        throw error; 
+        throw error; // Propagate the error to the caller
     }
 };
-
