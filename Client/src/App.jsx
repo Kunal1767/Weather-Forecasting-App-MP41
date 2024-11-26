@@ -58,11 +58,11 @@ function App() {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-          console.log("Latitude:", latitude, "Longitude:", longitude); // Debugging
+          console.log("Latitude:", latitude, "Longitude:", longitude); 
           try {
             const data = await fetchWeatherByCoordinates(latitude, longitude);
             setCurrentLocationWeather({ data, loading: false, error: false });
-            setShowModal(true); // Show modal when data is fetched
+            setShowModal(true);
           } catch (error) {
             setCurrentLocationWeather({ loading: false, data: {}, error: true });
             console.error("Error fetching weather by coordinates:", error);
@@ -91,9 +91,8 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData("chhata"); // Default city on load
+    fetchData("chhata");
 
-    // Simulate fetching weather alerts
     setTimeout(() => {
       setAlertData({
         type: "warning",
