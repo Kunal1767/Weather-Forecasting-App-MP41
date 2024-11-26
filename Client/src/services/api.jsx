@@ -23,7 +23,7 @@ export const fetchForecastData = async (city) => {
     }
 };
 export const fetchWeatherAlerts = async (query) => {
-    const apiKey = "79feb5c58cdf33aaf74c708ce702ba29"; // Replace with your actual API key
+    const apiKey = "79feb5c58cdf33aaf74c708ce702ba29"; 
     const baseUrl = `https://api.openweathermap.org/data/2.5/onecall`;
 
     const geoRes = await fetch(
@@ -40,14 +40,31 @@ export const fetchWeatherAlerts = async (query) => {
 
     // Check if alerts exist
     if (data.alerts && data.alerts.length > 0) {
-        const alert = data.alerts[0]; // Fetch the first alert
+        const alert = data.alerts[0];
         return {
             message: alert.description,
             timestamp: alert.start,
         };
     }
-
-    // Return null if no alerts
     return null;
+};
+export const fetchWeatherByCoordinates = async (latitude, longitude) => {
+    const apiKey = '376956a6049bffc220eed12aacb3d313'; 
+    const url = 'https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric';
+
+    try {
+        const response = await axios.get(url);
+        return response.data; 
+    } catch (error) {
+        if (error.response) {
+            
+            console.error("Error fetching weather data:", error.response.status, error.response.data);
+        } else if (error.request) {
+            console.error("Error fetching weather data: No response received", error.request);
+        } else {
+            console.error("Error fetching weather data:", error.message);
+        }
+        throw error; 
+    }
 };
 
