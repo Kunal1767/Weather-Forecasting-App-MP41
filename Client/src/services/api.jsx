@@ -22,3 +22,32 @@ export const fetchForecastData = async (city) => {
         throw error;
     }
 };
+export const fetchWeatherAlerts = async (query) => {
+    const apiKey = "79feb5c58cdf33aaf74c708ce702ba29"; // Replace with your actual API key
+    const baseUrl = `https://api.openweathermap.org/data/2.5/onecall`;
+
+    const geoRes = await fetch(
+        `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${apiKey}`
+    );
+    const geoData = await geoRes.json();
+    if (!geoData || geoData.length === 0) throw new Error("Location not found");
+
+    const { lat, lon } = geoData[0];
+    const alertUrl = `${baseUrl}?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,daily&appid=${apiKey}`;
+
+    const response = await fetch(alertUrl);
+    const data = await response.json();
+
+    // Check if alerts exist
+    if (data.alerts && data.alerts.length > 0) {
+        const alert = data.alerts[0]; // Fetch the first alert
+        return {
+            message: alert.description,
+            timestamp: alert.start,
+        };
+    }
+
+    // Return null if no alerts
+    return null;
+};
+

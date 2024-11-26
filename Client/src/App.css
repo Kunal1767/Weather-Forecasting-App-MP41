@@ -20,8 +20,10 @@ body {
     max-width: 700px;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     padding: 20px 15px;
+    height: 750px;
+    border: 2px solid black;
 }
 
 .SearchEngine {
@@ -354,7 +356,6 @@ body {
 
     .day {
         flex: 2 2 calc(50% - 6px);
-        /* Adjusted flex basis and margin */
         padding: 3px;
         margin: 3px;
     }
@@ -385,4 +386,16 @@ body {
         width: 100%;
     }
 }
-
+.weatherAlerts{
+    text-align: center;
+    margin: 50px auto 0;
+    width: 90%;
+    max-width: 300px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    padding: 20px 15px;
+    position: relative;
+    left: 580px;
+    top: -780px;
+}

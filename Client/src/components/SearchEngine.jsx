@@ -2,7 +2,7 @@ import React from "react";
 
 function SearchEngine({ query, setQuery, search }) {
     const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
             search(e);
         }
     };
@@ -17,7 +17,9 @@ function SearchEngine({ query, setQuery, search }) {
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
             />
-            <button onClick={search} className="search-button">Search</button>
+            <button onClick={search} className="search-button">
+                Search
+            </button>
         </div>
     );
 }
