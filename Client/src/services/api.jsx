@@ -38,7 +38,6 @@ export const fetchWeatherAlerts = async (query) => {
     const response = await fetch(alertUrl);
     const data = await response.json();
 
-    // Check if alerts exist
     if (data.alerts && data.alerts.length > 0) {
         const alert = data.alerts[0];
         return {

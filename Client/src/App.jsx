@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchCurrentWeather, fetchForecastData, fetchWeatherByCoordinates } from "./services/Api"; // Import APIs
+import { fetchCurrentWeather, fetchForecastData, fetchWeatherByCoordinates, } from "./services/Api"; 
 import SearchEngine from "./components/SearchEngine";
 import Forecast from "./components/Forecast";
 import WeatherAlert from "./components/WeatherAlert";
