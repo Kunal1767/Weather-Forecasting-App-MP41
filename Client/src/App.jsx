@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { fetchCurrentWeather, fetchForecastData, fetchWeatherByCoordinates, } from "./services/Api"; 
+import { fetchCurrentWeather, fetchForecastData } from "./services/api";
+
 import SearchEngine from "./components/SearchEngine";
 import Forecast from "./components/Forecast";
-import WeatherAlert from "./components/WeatherAlert";
 import "./App.css";
+
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
@@ -14,11 +15,6 @@ function App() {
     error: false,
   });
   const [forecastData, setForecastData] = useState([]);
-  const [alertData, setAlertData] = useState({
-    type: "info",
-    message: "Fetching weather alert data...",
-    lastUpdated: new Date().toLocaleString(),
-  });
   const [currentLocationWeather, setCurrentLocationWeather] = useState({
     loading: false,
     data: {},
@@ -52,80 +48,27 @@ function App() {
     }
   };
 
-  const fetchLocationWeather = async () => {
-    setCurrentLocationWeather({ loading: true, data: {}, error: false });
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          console.log("Latitude:", latitude, "Longitude:", longitude); 
-          try {
-            const data = await fetchWeatherByCoordinates(latitude, longitude);
-            setCurrentLocationWeather({ data, loading: false, error: false });
-            setShowModal(true);
-          } catch (error) {
-            setCurrentLocationWeather({ loading: false, data: {}, error: true });
-            console.error("Error fetching weather by coordinates:", error);
-          }
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-          setCurrentLocationWeather({ loading: false, data: {}, error: true });
-        }
-      );
-    } else {
-      console.error("Geolocation not supported in this browser.");
-      setAlertData({
-        type: "error",
-        message: "Geolocation not supported in this browser. Please enter a city manually.",
-        lastUpdated: new Date().toLocaleString(),
-      });
-    }
-  };
-
+ 
   const search = async (event) => {
     event.preventDefault();
-    if (event.type === "click" || (event.type === "keypress" && event.key === "Enter")) {
+    if (query.trim() && (event.type === "click" || (event.type === "keypress" && event.key === "Enter"))) {
       fetchData(query);
     }
   };
 
   useEffect(() => {
-    fetchData("jait");
-
-    setTimeout(() => {
-      setAlertData({
-        type: "warning",
-        message: "Rainfall expected in your area. Avoid unnecessary travel.",
-        lastUpdated: new Date().toLocaleString(),
-      });
-    }, 4000);
+    fetchData("Hathras");
   }, []);
 
   return (
     <div className="App">
       <div className="search-container">
         <SearchEngine query={query} setQuery={setQuery} search={search} />
-        <button
-          className="location-btn"
-          onClick={fetchLocationWeather}
-          aria-label="Get Weather for Current Location"
-        >
-          <i className="fas fa-location-arrow"></i>
-        </button>
       </div>
 
       {weather.loading && <h4>Searching...</h4>}
       {weather.error && <span className="error-message">Sorry, city not found. Please try again.</span>}
-      {weather.data.condition && <Forecast weather={weather} forecastData={forecastData} toDate={toDate} />}
-
-      <div className="weatherAlerts">
-        <WeatherAlert
-          type={alertData.type}
-          message={alertData.message}
-          lastUpdated={alertData.lastUpdated}
-        />
-      </div>
+      {weather.data.main && <Forecast weather={weather} forecastData={forecastData} toDate={toDate} />}
 
       {showModal && (
         <div className="modal">

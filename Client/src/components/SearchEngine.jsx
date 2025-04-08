@@ -18,7 +18,7 @@ function SearchEngine({ query, setQuery, search }) {
                 onKeyPress={handleKeyPress}
             />
             <button onClick={search} className="search-button">
-                Search
+                <i className="fas fa-search"></i>
             </button>
         </div>
     );
